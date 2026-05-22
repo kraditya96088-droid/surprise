@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Only For You ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(-45deg,#ff4d6d,#ff758f,#ffc2d1,#ffd6e0);
+background-size:400% 400%;
+animation:bg 10s infinite ease;
+color:white;
+position:relative;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+.card{
+width:92%;
+max-width:900px;
+padding:35px;
+text-align:center;
+background:rgba(255,255,255,.12);
+backdrop-filter:blur(20px);
+border-radius:35px;
+border:1px solid rgba(255,255,255,.25);
+box-shadow:0 0 50px rgba(0,0,0,.2);
+position:relative;
+overflow:hidden;
+}
+
+.page{display:none}
+.active{
+display:block;
+animation:fade .8s;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+h1{
+font-family:Great Vibes;
+font-size:55px;
+margin-bottom:10px;
+}
+
+p{
+font-size:18px;
+line-height:1.8;
+}
+
+button{
+padding:14px 30px;
+border:none;
+border-radius:40px;
+cursor:pointer;
+font-size:18px;
+margin-top:15px;
+}
+
+.btn{
+background:white;
+color:#ff4d6d;
+font-weight:bold;
+}
+
+.slider{
+width:270px;
+height:270px;
+margin:auto;
+overflow:hidden;
+border-radius:25px;
+border:4px solid white;
+}
+
+.slider img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.chat{
+background:rgba(255,255,255,.15);
+padding:15px;
+border-radius:20px;
+text-align:left;
+margin-top:15px;
+}
+
+.msg{
+padding:10px;
+background:rgba(255,255,255,.18);
+border-radius:15px;
+margin:10px;
+}
+
+.no{
+background:black;
+color:white;
+position:relative;
+}
+
+.drop{
+position:absolute;
+top:-30px;
+animation:fall linear infinite;
+font-size:22px;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh);
+opacity:0;
+}
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="bgMusic">
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+
+<div class="card">
+
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+
+<h1>Hey Princess ❤️</h1>
+
+<h3 id="days"></h3>
+
+<p>
+Since 4 April 2023 ❤️<br>
+Us din se meri duniya aur beautiful ho gayi...
+</p>
+
+<button class="btn" onclick="show(2)">
+Open My Heart
+</button>
+
+</div>
+
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+
+<h1>Our Memories 📸</h1>
+
+<div class="slider">
+<img id="slide" src="img1.jpg">
+</div>
+
+<p>
+First smile 😊<br>
+First memory ❤️
+</p>
+
+<button class="btn" onclick="show(3)">
+Continue
+</button>
+
+</div>
+
+
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+
+<h1>Reasons I Love You ❤️</h1>
+
+<p>
+😊 Tumhari smile <br><br>
+😒 Tumhara gussa bhi cute hai <br><br>
+❤️ Tumhara care karna
+</p>
+
+<button class="btn" onclick="show(4)">
+Continue
+</button>
+
+</div>
+
+
+<!-- PAGE 4 -->
+<div class="page" id="p4">
+
+<h1>Our Chat 😄</h1>
+
+<div class="chat">
+
+<div class="msg">
+You: gussa ho? 🥺
+</div>
+
+<div class="msg">
+Her: bahut 😒
+</div>
+
+<div class="msg">
+You: thoda kam kar do ❤️
+</div>
+
+</div>
+
+<button class="btn" onclick="show(5)">
+Continue
+</button>
+
+</div>
+
+
+<!-- PAGE 5 -->
+<div class="page" id="p5">
+
+<h1>Sorry Letter 💌</h1>
+
+<p id="typing"></p>
+
+<button class="btn" onclick="show(6)">
+Continue
+</button>
+
+</div>
+
+
+<!-- PAGE 6 -->
+<div class="page" id="p6">
+
+<h1>Mujhe Maaf Karogi? 🥺</h1>
+
+<button class="btn"
+onclick="show(7);blast()">
+Yes ❤️
+</button>
+
+<button class="no" id="noBtn">
+No 😒
+</button>
+
+</div>
+
+
+<!-- PAGE 7 -->
+<div class="page" id="p7">
+
+<h1>I Love You Forever ❤️</h1>
+
+<p>
+Main perfect nahi hu...<br>
+Par tumhare liye better banna chahta hu ❤️<br><br>
+
+Ek hug pending hai 🫂❤️
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+// MUSIC
+const music=document.getElementById("bgMusic");
+
+window.addEventListener("load",()=>{
+
+music.volume=0.8;
+
+let p=music.play();
+
+if(p!==undefined){
+
+p.catch(()=>{
+
+document.body.addEventListener(
+"click",
+()=>{
+music.play();
+},
+{once:true}
+);
+
+});
+
+}
+
+});
+
+
+// RELATIONSHIP DAYS
+let start=new Date("2023-04-04");
+
+let now=new Date();
+
+let total=
+Math.floor(
+(now-start)/(1000*60*60*24)
+);
+
+days.innerHTML=
+total+" Days Together ❤️";
+
+
+
+// PAGE SWITCH
+function show(n){
+
+document.querySelectorAll(".page")
+.forEach(x=>
+x.classList.remove("active")
+)
+
+document
+.getElementById("p"+n)
+.classList.add("active")
+
+if(n==5){
+type()
+}
+
+}
+
+
+
+// PHOTOS
+
+let photos=[
+"img1.jpg",
+"img2.jpg",
+"img3.jpg",
+"img4.jpg"
+];
+
+let c=0;
+
+setInterval(()=>{
+
+c=(c+1)%photos.length;
+
+slide.src=
+photos[c];
+
+},2500);
+
+
+
+// LETTER
+
+let txt=
+"Shayad galti meri thi... Lekin tumhare bina sab adhura lagta hai. Please ek chance aur de do ❤️";
+
+let i=0;
+
+function type(){
+
+typing.innerHTML="";
+
+let x=
+setInterval(()=>{
+
+typing.innerHTML+=txt[i];
+
+i++;
+
+if(i>=txt.length)
+clearInterval(x);
+
+},45);
+
+}
+
+
+
+// NO BUTTON
+
+noBtn.addEventListener(
+"mouseover",()=>{
+
+noBtn.style.position="absolute";
+
+noBtn.style.left=
+Math.random()*80+"%";
+
+noBtn.style.top=
+Math.random()*80+"%";
+
+});
+
+
+
+// FINAL HEARTS
+
+function blast(){
+
+for(let i=0;i<80;i++){
+
+let x=
+document.createElement("div");
+
+x.innerHTML=
+["❤️","💖","✨","💕"]
+[Math.floor(Math.random()*4)];
+
+x.classList.add("drop");
+
+x.style.left=
+Math.random()*100+"vw";
+
+x.style.animationDuration=
+Math.random()*3+2+"s";
+
+document.body.appendChild(x);
+
+setTimeout(()=>{
+x.remove()
+},5000);
+
+}
+
+}
+
+
+
+// HEART RAIN
+
+setInterval(()=>{
+
+let x=
+document.createElement("div");
+
+x.innerHTML=
+["❤️","✨"]
+[Math.floor(Math.random()*2)];
+
+x.classList.add("drop");
+
+x.style.left=
+Math.random()*100+"vw";
+
+x.style.animationDuration=
+Math.random()*5+3+"s";
+
+document.body.appendChild(x);
+
+setTimeout(()=>{
+x.remove()
+},7000);
+
+},300);
+
+</script>
+
+</body>
+</html>
